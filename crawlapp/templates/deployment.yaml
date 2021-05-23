@@ -10,6 +10,7 @@ spec:
   {{- end }}
   selector:
     matchLabels:
+      # app: {{ }} # need to fix selector labels after moving from 3 sep deployments to just 1 with helm
       {{- include "crawlapp.selectorLabels" . | nindent 6 }}
   template:
     metadata:
