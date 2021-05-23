@@ -35,12 +35,12 @@ volumes:
   - name: "data"
     claimName: "datadirclaim"
     mountPath: /data
-    storageClassName: "standard"
+    storageClassName: "azurefile"
     storage: 5Gi
   - name: "websockets" 
     claimName: "socketsdirclaim"
     mountPath: /websockets
-    storageClassName: "standard"
+    storageClassName: "azure-managed-disk"
     storage: 5Gi
 
 service:
