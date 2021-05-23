@@ -59,7 +59,7 @@ ingress:
     nginx.org/proxy-read-timeout: "3600s"
     nginx.org/proxy-send-timeout: "3600s"
   hosts:
-    - host: "localhost"
+    - host: localhost
       paths:
       - path: /scoring
         pathType: Prefix
