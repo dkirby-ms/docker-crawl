@@ -37,11 +37,13 @@ volumes:
     mountPath: /data
     storageClassName: "standard"
     storage: 5Gi
+    accessMode: ReadWriteOnce
   - name: "websockets" 
     claimName: "socketsdirclaim"
     mountPath: /websockets
     storageClassName: "standard"
     storage: 5Gi
+    accessMode: ReadWriteOnce
 
 service:
   crawl-git-name: "crawl-git-service"
