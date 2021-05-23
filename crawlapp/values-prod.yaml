@@ -40,7 +40,7 @@ volumes:
   - name: "websockets" 
     claimName: "socketsdirclaim"
     mountPath: /websockets
-    storageClassName: "azure-managed-disk"
+    storageClassName: "default"
     storage: 5Gi
 
 service:
