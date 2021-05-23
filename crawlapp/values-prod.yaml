@@ -4,25 +4,18 @@
 
 replicaCount: 1
 
-containers:
-  - name: "crawl-git"
-    repository: saitcho/crawl
-    pullPolicy: IfNotPresent
-    tag: "latest"  # Overrides the image tag whose default is the chart appVersion.
-    ports:
-      - containerPort: 8080
-  # - name: "crawl-26"
-  #   repository: saitcho/crawl-26
-  #   pullPolicy: IfNotPresent
-  #   tag: "latest"
-  #   ports:
-  #     - containerPort: 8080
-  - name: "crawl-scoring"
-    repository: saitcho/scoring
-    pullPolicy: IfNotPresent
-    tag: "latest"
-    ports:
-      - containerPort: 80
+crawlDeployment:
+  name: "crawl-git"
+  repository: saitcho/crawl
+  pullPolicy: IfNotPresent
+  tag: "latest"  # Overrides the image tag whose default is the chart appVersion.
+  containerPort: 8080
+scoringDeployment:
+  name: "crawl-scoring"
+  repository: saitcho/scoring
+  pullPolicy: IfNotPresent
+  tag: "latest"
+  containerPort: 80
 
 azureFiles:  # for aks prod with azure files
   name: "crawlfiles"
@@ -46,9 +39,9 @@ volumes:
     accessMode: ReadWriteOnce
 
 service:
-  crawl-git-name: "crawl-git-service"
-  crawl-26-name: "crawl-26-service"
-  crawl-scoring-name: "scoring-service"
+  crawlGitName: "crawl-git-service"
+  crawl26Name: "crawl-26-service"
+  scoringName: "scoring-service"
   port: 80
 
 ingress:

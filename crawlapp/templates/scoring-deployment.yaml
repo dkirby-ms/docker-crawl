@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.scoringDeployment.name }}
+  labels:
+    {{- include "crawlapp.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ .Values.service.scoringName }}
+      {{- include "crawlapp.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.service.scoringName }}
+        {{- include "crawlapp.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Values.scoringDeployment.name }}
+          image: "{{ .Values.scoringDeployment.repository }}:{{ .Values.scoringDeployment.tag }}"
+          imagePullPolicy: {{ .Values.scoringDeployment.pullPolicy }}
+          ports:
+          - containerPort: {{ .Values.scoringDeployment.containerPort }}
+          volumeMounts:
+            {{- range $.Values.volumes }}
+            - name: {{ .name }}
+              mountPath: {{ .mountPath }}
+            {{- end }}
+      volumes:
+        {{- range .Values.volumes }}
+        - name: {{ .name }}
+          persistentVolumeClaim:
+            claimName: {{ .claimName }}
+        {{- end }}
