@@ -1,0 +1,40 @@
+{{- if .Values.azureFiles }}
+{{- with .Values.azureFiles }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .name }}
+spec:
+  capacity:
+    storage: {{ .storage }}
+  storageClassName: {{ .storageClassName }}
+  accessModes:
+    - ReadWriteMany
+  azureFile:
+    secretName: {{ .secretName }}
+    shareName: {{ .shareName }}
+    readOnly: false
+  mountOptions:
+  - dir_mode=0755
+  - file_mode=0755
+  - uid=0
+  - gid=0
+  - mfsymlinks
+  - nobrl
+---
+{{- end }}
+{{- end }}
+{{- range .Values.volumes }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .claimName }}
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: {{ .storageClassName }}
+  resources:
+    requests:
+      storage: {{ .storage }}
+---
+{{- end }}
