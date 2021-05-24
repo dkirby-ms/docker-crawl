@@ -8,7 +8,7 @@ apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: {{ $fullName }}
+  name: crawl-ingress-game
   labels:
     {{- include "crawlapp.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
@@ -27,7 +27,7 @@ spec:
     {{- end }}
   {{- end }}
   rules:
-    {{- range .Values.ingress.hosts }}
+    {{- range .Values.ingress.hostsGame }}
     - host: {{ .host | quote }}
       http:
         paths:
