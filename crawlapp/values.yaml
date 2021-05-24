@@ -22,7 +22,21 @@ scoringDeployment:
 #   storage: 5Gi
 #   storageClassName: "azurefile"
 #   shareName: "crawlshare"
-#   secretName: "crawlshareStorageAccountKey"
+#   secretName: "crawlshareStorageAccountKey" # need to move this to keyvault
+
+# azureKeyvault:
+#   name: "kvcrawl"
+#   storageAccountKeySecretName: "crawlshareStorageAccountKey"
+#   tenantId: "72f988bf-86f1-41af-91ab-2d7cd011db47"
+#   userAssignedIdentityID: "9ea90dc3-0c82-4ced-b898-43cdce52edfb"
+#   secretObjects:
+#     - secretName: ingress-tls-csi
+#       type: kubernetes.io/tls
+#       data:
+#       - objectName: dkcrawl
+#         key: tls.key
+#       - objectName: dkcrawl
+#         key: tls.cert
 
 volumes:
   - name: "data"

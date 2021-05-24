@@ -1,6 +1,6 @@
 apiVersion: v2
 name: ckzcrawl
-description: A Helm chart for running the ckz crawl app
+description: A Helm chart for running the webtiles version of DCSS Stone Soup and the top scores pages on a Kubernetes cluster.
 
 # A chart can be either an 'application' or a 'library' chart.
 #
