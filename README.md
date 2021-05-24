@@ -7,6 +7,8 @@ Docker container and Kubernetes manifests for Dungeon Crawl Stone Soup (DCSS), c
 
 Forked from: [frozenfoxx/docker-crawl](https://github.com/frozenfoxx/docker-crawl)
 
+## WARNING: some of the below is obsolete with the move to helm chart. will update later
+
 ## Prerequisites (INCOMPLETE)
 
 * [Install Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
