@@ -11,10 +11,10 @@ metadata:
   name: crawl-ingress-game
   labels:
     {{- include "crawlapp.labels" . | nindent 4 }}
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
   {{- end }}
 spec:
   {{- if .Values.ingress.tls }}
