@@ -7,13 +7,13 @@ replicaCount: 1
 crawlDeployment:
   name: "crawl-git"
   repository: saitcho/crawl
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   tag: "latest"  # Overrides the image tag whose default is the chart appVersion.
   containerPort: 8080
 scoringDeployment:
   name: "crawl-scoring"
   repository: saitcho/scoring
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   tag: "latest"
   containerPort: 80
 
