@@ -38,7 +38,7 @@ volumes:
     storage: 5Gi
     accessMode: ReadWriteOnce
 
-service:
+service: # TODO: clean up and modularize
   crawlGitName: "crawl-git-service"
   crawl26Name: "crawl-26-service"
   scoringName: "scoring-service"
