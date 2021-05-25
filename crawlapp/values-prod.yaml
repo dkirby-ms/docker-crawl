@@ -66,7 +66,7 @@ ingress:
     nginx.org/proxy-read-timeout: "3600s"
     nginx.org/proxy-send-timeout: "3600s"
   hostsScoring:
-    - host: localhost
+    - host: crawl.kirbytoso.xyz
       paths:
       - path: /scoring
         pathType: Prefix
@@ -90,7 +90,7 @@ ingress:
             port:
               number: 8080
   hostsGame:
-    - host: localhost
+    - host: crawl.kirbytoso.xyz
       paths:
       - path: /dcss-web-git(/|$)(.*)
         pathType: Prefix
@@ -106,10 +106,10 @@ ingress:
             name: crawl-26-service
             port:
               number: 8080
-  # tls:
-  #   - secretName: "ingress-tls-csi"
-  #     hosts:
-  #       - crawl.kirbytoso.xyz
+  tls:
+    - secretName: "ingress-tls-csi"
+      hosts:
+        - crawl.kirbytoso.xyz
 
 imagePullSecrets: []
 nameOverride: ""
