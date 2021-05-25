@@ -2,7 +2,7 @@
 
 RCDIR=/data/rcs/$CRAWLVERSION
 INPROGRESSDIR=/data/inprogress/$CRAWLVERSION
-TTYRECDIR=/data/ttyrecs/$1
+TTYRECDIR=/data/ttyrec/$1
 MORGUEDIR=/data/morgue/$1
 DEFAULT_RC=/app/settings/init.txt
 PLAYERNAME=$1
