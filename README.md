@@ -77,30 +77,41 @@ Forked from: [frozenfoxx/docker-crawl](https://github.com/frozenfoxx/docker-craw
 
 * Deploy secrets-store-csi driver
 
-* Deploy Ingress controller
+```shell
+helm repo add csi-secrets-store-provider-azure https://raw.githubusercontent.com/Azure/secrets-store-csi-driver-provider-azure/master/charts
+helm install csi csi-secrets-store-provider-azure/csi-secrets-store-provider-azure --namespace kube-system
+```
 
-  ```shell
-  helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-  helm repo update
-  helm install ingress-nginx/ingress-nginx --generate-name \
-      --set controller.replicaCount=2 \
-      --set controller.nodeSelector."beta\.kubernetes\.io/os"=linux \
-      --set defaultBackend.nodeSelector."beta\.kubernetes\.io/os"=linux \
-      -f - <<EOF
-  controller:
-    extraVolumes:
-        - name: secrets-store-inline
-          csi:
-            driver: secrets-store.csi.k8s.io
-            readOnly: true
-            volumeAttributes:
-              secretProviderClass: "azure-kvcrawl"
-    extraVolumeMounts:
-        - name: secrets-store-inline
-          mountPath: "/mnt/secrets-store"
+* Deploy Ingress controller (for AKS)
+
+```shell
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
+helm install ingress-nginx/ingress-nginx --generate-name \
+    --set controller.replicaCount=2 \
+    --set controller.nodeSelector."beta\.kubernetes\.io/os"=linux \
+    --set defaultBackend.nodeSelector."beta\.kubernetes\.io/os"=linux \
+    -f - <<EOF
+controller:
+  extraVolumes:
+      - name: secrets-store-inline
+        csi:
+          driver: secrets-store.csi.k8s.io
           readOnly: true
-  EOF
-  ```
+          volumeAttributes:
+            secretProviderClass: "azure-kvcrawl"
+  extraVolumeMounts:
+      - name: secrets-store-inline
+        mountPath: "/mnt/secrets-store"
+        readOnly: true
+EOF
+```
+
+* Deploy Ingress controller (for minikube running on WSL2 without Docker Desktop)
+
+```shell
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.46.0/deploy/static/provider/cloud/deploy.yaml
+```
 
 * Create storage account and fileshare
 
