@@ -12,7 +12,7 @@ crawlDeployment:
 scoringDeployment:
   name: "crawl-scoring"
   repository: saitcho/scoring
-  replicaCount: 3
+  replicaCount: 1
   pullPolicy: Always
   tag: "latest"
   containerPort: 80
