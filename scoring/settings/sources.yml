@@ -15,11 +15,13 @@ sources:
     local: /data/logfiles
     logfiles:
       - git/logfile
+      - 0.27/logfile
       - 0.26/logfile
       - 0.25/logfile
 
     milestones:
       - git/milestones
+      - 0.27/milestones
       - 0.26/milestones
       - 0.25/milestones
 
