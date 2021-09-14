@@ -24,6 +24,9 @@ try:
 except ImportError:
     from ordereddict import OrderedDict # type: ignore
 
+# AAD B2C support
+use_oauth = True # True = enables AAD_B2C login and disables legacy login;
+# 
 
 dgl_mode = True
 

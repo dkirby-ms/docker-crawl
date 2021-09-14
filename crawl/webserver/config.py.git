@@ -27,6 +27,10 @@ except ImportError:
 
 dgl_mode = True
 
+# AAD B2C support
+use_oauth = True # True = enables AAD_B2C login and disables legacy login;
+# 
+
 bind_nonsecure = True # Set to false to only use SSL
 bind_address = ""
 bind_port = 8080
