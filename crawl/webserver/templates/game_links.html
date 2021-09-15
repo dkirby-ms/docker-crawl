@@ -7,10 +7,10 @@ Play now:
             {% if "separator" in games[id] %}
                 {% raw games[id]["separator"] %}
             {% else %}<br>{% end %}
-            {% if not save_info[id] %}<a href="/{{ id }}/#play-{{ id }}">{% end %}
+            {% if not save_info[id] %}<a href="#play-{{ id }}">{% end %}
                 {{ games[id]["name"] }}{% if not save_info[id] %}</a>{% end %}
             {% if save_info[id] %}
-                <span>{% if not disabled(save_info[id]) %}<a href="/{{ id }}/#play-{{ id }}">{% end %}{{ save_info[id] }}{% if not disabled(save_info[id]) %}</a>{% end %}</span>
+                <span>{% if not disabled(save_info[id]) %}<a href="#play-{{ id }}">{% end %}{{ save_info[id] }}{% if not disabled(save_info[id]) %}</a>{% end %}</span>
             {% end %}
             {% set rcs.add(games[id]["rcfile_path"]) %}
             <a href="javascript:"
@@ -20,10 +20,10 @@ Play now:
             {% if "separator" in games[id] %}
               {% raw games[id]["separator"] %}
             {% else %} | {% end %}
-            {% if not save_info[id] %}<a href="/{{ id }}/#play-{{ id }}">{% end %}
+            {% if not save_info[id] %}<a href="#play-{{ id }}">{% end %}
                 {{ games[id]["name"] }}{% if not save_info[id] %}</a>{% end %}
             {% if save_info[id] %}
-                <span>{% if not disabled(save_info[id]) %}<a href="/{{ id }}/#play-{{ id }}">{% end %}{{ save_info[id] }}{% if not disabled(save_info[id]) %}</a>{% end %}</span>
+                <span>{% if not disabled(save_info[id]) %}<a href="#play-{{ id }}">{% end %}{{ save_info[id] }}{% if not disabled(save_info[id]) %}</a>{% end %}</span>
             {% end %}
         {% end %}
         </span>
@@ -36,7 +36,7 @@ Play now:
     {% if "separator" in games[id] %}
     {% raw games[id]["separator"] %}
     {% else %}<br>{% end %}
-    <a href="/{{ id }}/#play-{{ id }}">{{ games[id]["name"] }}</a>
+    <a href="#play-{{ id }}">{{ games[id]["name"] }}</a>
     {% set rcs.add(games[id]["rcfile_path"]) %}
     <a href="javascript:"
        class="edit_rc_link"
@@ -45,7 +45,7 @@ Play now:
     {% if "separator" in games[id] %}
     {% raw games[id]["separator"] %}
     {% else %} | {% end %}
-    <a href="/{{ id }}/#play-{{ id }}">{{ games[id]["name"] }}</a>
+    <a href="#play-{{ id }}">{{ games[id]["name"] }}</a>
     {% end %}
     {% end %}
 {% end %}
