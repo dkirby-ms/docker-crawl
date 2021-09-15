@@ -8,13 +8,30 @@ metadata:
 spec:
   provider: azure
   secretObjects:                            # secretObjects defines the desired state of synced K8s secret objects
-  - secretName: ingress-tls-csi # how to insert this as block literal from values.yaml?
+  - secretName: ingress-tls-csi
     type: kubernetes.io/tls
     data: 
     - objectName: dkcrawl
       key: tls.key
     - objectName: dkcrawl
       key: tls.crt
+  - secretName: crawl-secrets
+    type: kubernetes.io/Opaque
+    data:
+    - objectName: kvName
+      key: kvName
+    - objectName: kvTenantId
+      key: kvTenantId
+    - objectName: kvClientId
+      key: kvClientId
+    - objectName: kvClientSecret
+      key: kvClientSecret
+    - objectName: ckzcrawlAppId
+      key: ckzcrawlAppId
+    - objectName: ckzcrawlAppSecret
+      key: ckzcrawlAppSecret
+    - objectName: ckzcrawlMainUserPassword
+      key: ckzcrawlMainUserPassword
   parameters:
     usePodIdentity: "false"         # [OPTIONAL] if not provided, will default to "false"
     useVMManagedIdentity: "true"
@@ -25,6 +42,34 @@ spec:
       array:
         - |
           objectName: dkcrawl
+          objectType: secret        # object types: secret, key or cert
+          objectVersion: ""         # [OPTIONAL] object versions, default to latest if empty
+        - |
+          objectName: kvName
+          objectType: secret        # object types: secret, key or cert
+          objectVersion: ""         # [OPTIONAL] object versions, default to latest if empty
+        - |
+          objectName: kvTenantId
+          objectType: secret        # object types: secret, key or cert
+          objectVersion: ""         # [OPTIONAL] object versions, default to latest if empty
+        - |
+          objectName: kvClientSecret
+          objectType: secret        # object types: secret, key or cert
+          objectVersion: ""         # [OPTIONAL] object versions, default to latest if empty
+        - |
+          objectName: kvClientId
+          objectType: secret        # object types: secret, key or cert
+          objectVersion: ""         # [OPTIONAL] object versions, default to latest if empty
+        - |
+          objectName: ckzcrawlAppId
+          objectType: secret        # object types: secret, key or cert
+          objectVersion: ""         # [OPTIONAL] object versions, default to latest if empty
+        - |
+          objectName: ckzcrawlAppSecret
+          objectType: secret        # object types: secret, key or cert
+          objectVersion: ""         # [OPTIONAL] object versions, default to latest if empty
+        - |
+          objectName: ckzcrawlMainUserPassword
           objectType: secret        # object types: secret, key or cert
           objectVersion: ""         # [OPTIONAL] object versions, default to latest if empty
     tenantId: {{ .tenantId }}                 # the tenant ID of the KeyVault

@@ -62,7 +62,7 @@ Forked from: [frozenfoxx/docker-crawl](https://github.com/frozenfoxx/docker-craw
 
   ```shell
   helm repo add csi-secrets-store-provider-azure https://raw.githubusercontent.com/Azure/secrets-store-csi-driver-provider-azure/master/charts
-  helm install csi-secrets-store-provider-azure/csi-secrets-store-provider-azure --generate-name
+  helm install csi csi-secrets-store-provider-azure/csi-secrets-store-provider-azure --namespace kube-system
   ```
 
   ![Screenshot showing helm install secrets csi](./docs/helminstallsecretscsi.png)
@@ -74,13 +74,6 @@ Forked from: [frozenfoxx/docker-crawl](https://github.com/frozenfoxx/docker-craw
 * Set a key vault access policy to allow your AKS managed identity client id to get secrets and certificates.
 
 * Edit crawlapp/values.yaml with your values.
-
-* Deploy secrets-store-csi driver
-
-```shell
-helm repo add csi-secrets-store-provider-azure https://raw.githubusercontent.com/Azure/secrets-store-csi-driver-provider-azure/master/charts
-helm install csi csi-secrets-store-provider-azure/csi-secrets-store-provider-azure --namespace kube-system
-```
 
 * Deploy Ingress controller (for AKS)
 

@@ -37,6 +37,13 @@ azureKeyvault:
         key: tls.key
       - objectName: dkcrawl
         key: tls.cert
+    - secretName: kvName
+      type: kubernetes.io/Opaque
+      data:
+      - objectName: kvName
+        key: kvName
+      - objectName: kvTenantId
+        key: kvTenantId
 
 volumes:
   - name: "data"

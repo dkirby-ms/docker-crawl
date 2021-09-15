@@ -66,6 +66,7 @@ COPY webserver/templates/client.html /app/webserver/templates/client.html
 COPY webserver/templates/banner.html /app/webserver/templates/banner.html
 COPY webserver/templates/game_links.html /app/webserver/templates/game_links.html
 COPY webserver/static/scripts/client.js /app/webserver/static/scripts/client.js
+RUN chmod 700 /app/webserver/server.py
 
 # Set Crawl version for container to use
 ENV CRAWLVERSION="0.27"
