@@ -209,7 +209,7 @@ crypt_algorithm = "broken"
 # setting is ignored and the salt is two characters.
 crypt_salt_length = 16
 
-login_token_lifetime = 7 # Days
+login_token_lifetime = 1 # Days
 
 uid = None  # If this is not None, the server will setuid to that (numeric) id
 gid = None  # after binding its sockets.
