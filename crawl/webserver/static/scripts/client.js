@@ -528,7 +528,7 @@ function (exports, $, key_conversion, chat, comm) {
         $("#admin_panel_button").hide();
         $("#admin_panel").hide();
         // location.reload(); commented out for Oauth support
-        location.replace('https://ckzcrawl.b2clogin.com/ckzcrawl.onmicrosoft.com/B2C_1_signupsignin/oauth2/v2.0/logout?post_logout_redirect_uri=http://localhost:8080/logout')
+        location.replace('https://ckzcrawl.b2clogin.com/ckzcrawl.onmicrosoft.com/B2C_1_signupsignin/oauth2/v2.0/logout?post_logout_redirect_uri=https://crawl.kirbytoso.xyz/logout')
     }
 
     function toggle_admin_panel()

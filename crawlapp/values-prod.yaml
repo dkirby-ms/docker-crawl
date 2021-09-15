@@ -59,6 +59,42 @@ volumes:
     storage: 5Gi
     accessMode: ReadWriteOnce
 
+envVars:
+  - name: URLBASE
+    value: "https://crawl.kirbytoso.xyz"
+
+envSecrets:
+  - name: B2C_CLIENT_ID
+    valueFrom:
+      secretKeyRef:
+        name: crawl-secrets
+        key: ckzcrawlAppId
+  - name: B2C_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: crawl-secrets
+        key: ckzcrawlAppSecret
+  - name: KV_CLIENT_ID
+    valueFrom:
+      secretKeyRef:
+        name: crawl-secrets
+        key: kvClientId
+  - name: KV_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: crawl-secrets
+        key: kvClientSecret
+  - name: KV_TENANT_ID
+    valueFrom:
+      secretKeyRef:
+        name: crawl-secrets
+        key: kvTenantId
+  - name: KV_NAME
+    valueFrom:
+      secretKeyRef:
+        name: crawl-secrets
+        key: kvName
+
 service:
   crawlGitName: "crawl-git-service"
   crawl26Name: "crawl-26-service"
@@ -72,7 +108,7 @@ ingress:
     proxy-connect-timeout: "3600s"
     nginx.org/proxy-read-timeout: "3600s"
     nginx.org/proxy-send-timeout: "3600s"
-  hostsScoring:
+  hosts:
     - host: crawl.kirbytoso.xyz
       paths:
       - path: /scoring
@@ -96,28 +132,11 @@ ingress:
             name: "crawl-git-service"
             port:
               number: 8080
-      - path: /authorize
-        pathType: Prefix
-        backend:
-          service:
-            name: "crawl-git-service"
-            port:
-              number: 8080
-  hostsGame:
-    - host: crawl.kirbytoso.xyz
-      paths:
       - path: /dcss-web-git(/|$)(.*)
         pathType: Prefix
         backend:
           service:
             name: crawl-git-service
-            port:
-              number: 8080
-      - path: /dcss-web-0.26(/|$)(.*)
-        pathType: Prefix
-        backend:
-          service:
-            name: crawl-26-service
             port:
               number: 8080
   tls:
