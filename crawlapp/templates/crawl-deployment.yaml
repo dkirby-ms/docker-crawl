@@ -23,6 +23,8 @@ spec:
           image: "{{ .Values.crawlDeployment.repository }}:{{ .Values.crawlDeployment.tag }}"
           imagePullPolicy: {{ .Values.crawlDeployment.pullPolicy }}
           env:
+            - name: URLBASE
+              value: "http://crawl.kirbytoso.xyz:8080"
             - name: B2C_CLIENT_ID
               valueFrom:
                 secretKeyRef:
