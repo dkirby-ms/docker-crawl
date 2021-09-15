@@ -96,6 +96,13 @@ ingress:
             name: "crawl-git-service"
             port:
               number: 8080
+      - path: /authorize
+        pathType: Prefix
+        backend:
+          service:
+            name: "crawl-git-service"
+            port:
+              number: 8080
   hostsGame:
     - host: crawl.kirbytoso.xyz
       paths:
