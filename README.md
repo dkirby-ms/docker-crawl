@@ -73,6 +73,8 @@ Forked from: [frozenfoxx/docker-crawl](https://github.com/frozenfoxx/docker-craw
 
 * Set a key vault access policy to allow your AKS managed identity client id to get secrets and certificates.
 
+* Create secrets and tls cert in keyvault
+
 * Edit crawlapp/values.yaml with your values.
 
 * Deploy Ingress controller (for AKS)
@@ -107,13 +109,5 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 ```
 
 * Create storage account and fileshare
-
-* Add kubernetes secret for storage account key
-
-  ```shell
-  STORAGE_ACCOUNT=<your storage account name>
-  STORAGE_KEY=<your key>
-  kubectl create secret generic azure-secret --from-literal=azurestorageaccountname=$STORAGE_ACCOUNT --from-literal=azurestorageaccountkey=$STORAGE_KEY
-  ```
 
 * helm install crawlapp ./crawlapp

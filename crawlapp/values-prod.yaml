@@ -22,7 +22,7 @@ azureFiles:  # for aks prod with azure files
   storage: 5Gi
   storageClassName: "azurefile"
   shareName: "crawlshare"
-  secretName: "azure-secret"
+  secretName: "azure-files-secret"
 
 azureKeyvault:
   name: "kvcrawl"

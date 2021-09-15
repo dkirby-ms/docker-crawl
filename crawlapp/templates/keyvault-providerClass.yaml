@@ -15,6 +15,13 @@ spec:
       key: tls.key
     - objectName: dkcrawl
       key: tls.crt
+  - secretName: azure-files-secret
+    type: kubernetes.io/Opaque
+    data:
+    - objectName: azFilesName
+      key: azurestorageaccountname
+    - objectName: azFilesKey
+      key: azurestorageaccountkey
   - secretName: crawl-secrets
     type: kubernetes.io/Opaque
     data:
@@ -40,8 +47,16 @@ spec:
     cloudName: ""                   # [OPTIONAL for Azure] if not provided, azure environment will default to AzurePublicCloud
     objects:  |
       array:
-        - |
+        - | 
           objectName: dkcrawl
+          objectType: secret        # object types: secret, key or cert
+          objectVersion: ""         # [OPTIONAL] object versions, default to latest if empty
+        - | 
+          objectName: azFilesName
+          objectType: secret        # object types: secret, key or cert
+          objectVersion: ""         # [OPTIONAL] object versions, default to latest if empty
+        - |
+          objectName: azFilesKey
           objectType: secret        # object types: secret, key or cert
           objectVersion: ""         # [OPTIONAL] object versions, default to latest if empty
         - |
