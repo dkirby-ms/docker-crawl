@@ -55,7 +55,7 @@ COPY webserver/git.config.py /app/webserver/config.py
 COPY settings/init.txt /app/settings/
 COPY util/webtiles-init-player.sh /app/util/
 COPY webserver/aad_b2c.py /app/webserver/aad_b2c.py
-COPY webserver/aad_b2c.py /app/webserver/auth.py
+COPY webserver/auth.py /app/webserver/auth.py
 COPY webserver/server.py /app/webserver/server.py
 COPY webserver/games.d/* /app/webserver/games.d/
 COPY webserver/templates/client.html /app/webserver/templates/client.html
