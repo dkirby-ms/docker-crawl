@@ -103,7 +103,7 @@ envSecrets:
 
 service:
   crawlGitName: "crawl-git-service"
-  crawl27Name; "crawl-27-service"
+  crawl27Name: "crawl-27-service"
   crawl26Name: "crawl-26-service"
   scoringName: "scoring-service"
   port: 80

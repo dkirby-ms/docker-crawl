@@ -53,7 +53,7 @@ RUN pip3 install tornado PyYaML azure-identity azure-keyvault-secrets msal
 COPY --from=builder /app/ /app/
 
 # Copy over custom configs
-COPY webserver/config.py.v26 /app/webserver/config.py
+COPY webserver/v26.config.py /app/webserver/config.py
 
 # Copy over OAuth code for AAD B2C support
 COPY settings/init.txt /app/settings/
