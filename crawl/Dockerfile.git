@@ -55,13 +55,12 @@ COPY webserver/config.py.git /app/webserver/config.py
 COPY settings/init.txt /app/settings/
 COPY util/webtiles-init-player.sh /app/util/
 COPY webserver/aad_b2c.py /app/webserver/aad_b2c.py
+COPY webserver/aad_b2c.py /app/webserver/auth.py
 COPY webserver/server.py /app/webserver/server.py
-COPY webserver/ws_handler.py /app/webserver/ws_handler.py
 COPY webserver/games.d/* /app/webserver/games.d/
 COPY webserver/templates/client.html /app/webserver/templates/client.html
 COPY webserver/templates/banner.html /app/webserver/templates/banner.html
 COPY webserver/templates/game_links.html /app/webserver/templates/game_links.html
-COPY webserver/static/scripts/client.js /app/webserver/static/scripts/client.js
 RUN chmod 700 /app/webserver/server.py
 
 # Set Crawl version for container to use

@@ -3,22 +3,24 @@ import msal
 import requests
 import tornado
 
-session = dict()
-
-b2c_tenant = "ckzcrawl"
-signupsignin_user_flow = "B2C_1_signupsignin"
-editprofile_user_flow = "B2C_1_profileediting1"
-
+b2c_tenant = os.getenv("B2C_TENANT")
+signupsignin_user_flow = os.getenv("SIGNUPSIGNUP_USER_FLOW")
+editprofile_user_flow = os.getenv("EDITPROFILE_USER_FLOW")
 authority_template = "https://{tenant}.b2clogin.com/{tenant}.onmicrosoft.com/{user_flow}"
 
+if not b2c_tenant:
+    raise ValueError("Need to define B2C_TENANT environment variable")
+if not signupsignin_user_flow:
+    raise ValueError("Need to define SIGNUPSIGNUP_USER_FLOW environment variable")
+if not editprofile_user_flow:
+    raise ValueError("Need to define EDITPROFILE_USER_FLOW environment variable")
+
 CLIENT_ID = os.getenv("B2C_CLIENT_ID") # Application (client) ID of app registration
-CLIENT_SECRET = os.getenv("B2C_CLIENT_SECRET") # Placeholder - for use ONLY during testing.
-# In a production app, we recommend you use a more secure method of storing your secret,
-# like Azure Key Vault. Or, use an environment variable as described in Flask's documentation:
-# https://flask.palletsprojects.com/en/1.1.x/config/#configuring-from-environment-variables
-# CLIENT_SECRET = os.getenv("CLIENT_SECRET")
-# if not CLIENT_SECRET:
-#     raise ValueError("Need to define CLIENT_SECRET environment variable")
+CLIENT_SECRET = os.getenv("B2C_CLIENT_SECRET") 
+if not CLIENT_ID:
+    raise ValueError("Need to define B2C_CLIENT_ID environment variable")
+if not CLIENT_SECRET:
+    raise ValueError("Need to define B2C_CLIENT_SECRET environment variable")
 
 AUTHORITY = authority_template.format(
     tenant=b2c_tenant, user_flow=signupsignin_user_flow)
@@ -26,9 +28,9 @@ B2C_PROFILE_AUTHORITY = authority_template.format(
     tenant=b2c_tenant, user_flow=editprofile_user_flow)
 
 URLBASE = os.getenv("URLBASE")
-REDIRECT_PATH = "/authorize"  # Used for forming an absolute URL to your redirect URI.
-                              # The absolute URL must match the redirect URI you set
-                              # in the app's registration in the Azure portal.
+if not URLBASE:
+    raise ValueError("Need to define URLBASE environment variable")
+REDIRECT_PATH = "/authorize"
 
 # This is the API resource endpoint
 ENDPOINT = '' # Application ID URI of app registration in Azure portal
@@ -36,17 +38,15 @@ ENDPOINT = '' # Application ID URI of app registration in Azure portal
 # These are the scopes you've exposed in the web API app registration in the Azure portal
 SCOPE = []  # Example with two exposed scopes: ["demo.read", "demo.write"]
 
-# SESSION_TYPE = "filesystem"  # Specifies the token cache should be stored in server-side session - DaleK - this is pointless since we arent using flask-session
-
-def _load_cache():
+def _load_cache(handler):
     cache = msal.SerializableTokenCache()
-    if "token_cache" in session:
-        cache.deserialize(session["token_cache"])
+    if "token_cache" in handler.session:
+        cache.deserialize(handler.session["token_cache"])
     return cache
 
-def _save_cache(cache):
+def _save_cache(handler, cache):
     if cache.has_state_changed:
-        session["token_cache"] = cache.serialize()
+        handler.session["token_cache"] = cache.serialize()
 
 def _build_msal_app(cache=None, authority=None):
     return msal.ConfidentialClientApplication(

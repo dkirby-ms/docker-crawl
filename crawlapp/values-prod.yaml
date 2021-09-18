@@ -62,6 +62,12 @@ volumes:
 envVars:
   - name: URLBASE
     value: "https://crawl.kirbytoso.xyz"
+  - name: B2C_TENANT
+    value: "ckzcrawl"
+  - name: SIGNUPSIGNUP_USER_FLOW
+    value: "B2C_1_signupsignin"
+  - name: EDITPROFILE_USER_FLOW
+    value: "B2C_1_profileediting1"
 
 envSecrets:
   - name: B2C_CLIENT_ID
@@ -97,6 +103,7 @@ envSecrets:
 
 service:
   crawlGitName: "crawl-git-service"
+  crawl27Name; "crawl-27-service"
   crawl26Name: "crawl-26-service"
   scoringName: "scoring-service"
   port: 80
