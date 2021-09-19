@@ -3,7 +3,7 @@
 [![Crawl-build-trunk-and-push](https://github.com/dkirby-ms/docker-crawl/actions/workflows/crawl-git-build.yml/badge.svg)](https://github.com/dkirby-ms/docker-crawl/actions/workflows/crawl-git-build.yml)
 [![Scoring-build-and-push](https://github.com/dkirby-ms/docker-crawl/actions/workflows/scoring-build.yml/badge.svg)](https://github.com/dkirby-ms/docker-crawl/actions/workflows/scoring-build.yml)
 
-Docker container and Kubernetes manifests for Dungeon Crawl Stone Soup (DCSS), crawl-scoring, and eventually beem.
+Docker container and Kubernetes manifests for Dungeon Crawl Stone Soup (DCSS), crawl-scoring, and eventually beem. Includes support for running on Microsoft Azure services including AKS, Keyvault, Azure AD B2C, Redis cache, and more. 
 
 Forked from: [frozenfoxx/docker-crawl](https://github.com/frozenfoxx/docker-crawl)
 
