@@ -47,7 +47,7 @@ RUN apt-get update && \
   apt-get install -y ${APP_DEPS}
 
 # Install Tornado
-RUN pip3 install tornado PyYaML azure-identity azure-keyvault-secrets msal torndsession
+RUN pip3 install tornado PyYaML azure-identity azure-keyvault-secrets msal torndsession redis
 
 # Copy over the compiled files
 COPY --from=builder /app/ /app/

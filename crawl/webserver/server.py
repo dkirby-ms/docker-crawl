@@ -36,6 +36,56 @@ from torndsession.sessionhandler import SessionBaseHandler
 aadSessionTokens = {} # redis or something
 aadFlow = {}
 
+class CrawlOauthApplication(tornado.web.Application):
+    def __init__(self):
+        settings = {
+        "static_path": config.static_path,
+        "template_loader": DynamicTemplateLoader.get(config.template_path),
+        "debug": bool(getattr(config, 'development_mode', False)),
+        }
+
+        if hasattr(config, "no_cache") and config.no_cache:
+            settings["static_handler_class"] = NoCacheHandler
+
+        handlers = [
+                (r"/", MainHandler),
+                (r"/authorize", AuthorizeHandler), # Oauth support
+                (r"/logout", LogoutHandler), # Oauth support
+                (r"/socket", CrawlWebSocket),
+                (r"/gamedata/([0-9a-f]*\/.*)", GameDataHandler)
+        ]
+
+        if config.torndsession_cache_type == "Redis":
+            redisConn = os.getenv("REDIS_CONNECTION_STRING")
+            redisHost, redisPassword, redisSsl, redisAbortConnect = redisConn.split(",")
+            redisHostname, redisPort = redisHost.split(":")
+            redisPassword = redisPassword.replace("password=", "")
+            if redisSsl.replace("ssl=","") == "True":
+                redisSsl = True 
+            else: 
+                redisSsl = False
+            session_settings = dict(
+                driver="redis",
+                driver_settings=dict(
+                    host=redisHostname,
+                    port=redisPort,
+                    password=redisPassword,
+                    db=0,
+                    max_connections=1024,
+                )
+            )
+        else:
+            session_settings = dict(
+                driver='memory',
+                driver_settings={'host': self},
+                force_persistence=True,
+                sid_name='torndsession-mem',
+                session_lifetime=1800
+            )
+        
+        settings.update(session=session_settings)
+        tornado.web.Application.__init__(self, handlers=handlers, gzip=getattr(config,"use_gzip",True), **settings)
+
 class MainHandler(SessionBaseHandler):
     def get(self):
         host = self.request.host
@@ -58,26 +108,25 @@ class MainHandler(SessionBaseHandler):
             if "flow" in self.session:
                 username = self.session["idtoken"][0]
                 auth.log_in_as_user(self, username)
+                authUrlHtml = ""
                 self.render("client.html", socket_server = protocol + host + "/socket",
                     username = None, config = config,
                     reset_token = recovery_token, reset_token_error = recovery_token_error,
-                    auth_url = self.session["flow"]["auth_uri"], version=msal.__version__)
-                # usersocket = find_user_sockets(username)
-                # for socket in usersocket:
-                #     socket.send_message("logged_in", cookie = cookie, expires = config.login_token_lifetime)
+                    auth_url = authUrlHtml, version=msal.__version__)
             else:
                 self.session["flow"] = aad_b2c._build_auth_code_flow(scopes=aad_b2c.SCOPE)
+                authUrlHtml = "<a id=\"oauth_login_link_anchor\" href=\"" + self.session["flow"]["auth_uri"] + "\">Sign In</a>"
                 self.render("client.html", socket_server = protocol + host + "/socket",
                     username = None, config = config,
                     reset_token = recovery_token, reset_token_error = recovery_token_error,
-                    auth_url = self.session["flow"]["auth_uri"], version=msal.__version__)
+                    auth_url = authUrlHtml, version=msal.__version__)
    
         else:
             self.render("client.html", socket_server = protocol + host + "/socket",
                 username = None, config = config,
                 reset_token = recovery_token, reset_token_error = recovery_token_error)
 
-# AAD_B2C addition
+
 class AuthorizeHandler(SessionBaseHandler):
     def get(self):
         host = self.request.host
@@ -92,34 +141,36 @@ class AuthorizeHandler(SessionBaseHandler):
                 self.session["flow"], convert(self.request.arguments))
             # if "error" in result:
             #     return render_template("auth_error.html", result=result)
-            
             registerOrSigninOauthUser(self, result.get("id_token_claims"))
             aad_b2c._save_cache(self, cache)
             self.redirect("/")
         except Exception:  # Usually caused by CSRF
-            logging.error("Authorization error on OAuth redirect: " + Exception + ", " + Exception.with_traceback())
+            logging.error("Authorization error on OAuth redirect: " + Exception.with_traceback())
             pass  # Add login to throw token error page
 
-class LogoutHandler(tornado.web.RequestHandler):
+class LogoutHandler(SessionBaseHandler):
     def get(self):
         host = self.request.host
         if self.request.protocol == "https" or self.request.headers.get("x-forwarded-proto") == "https":
             protocol = "wss://"
         else:
             protocol = "ws://"
-        self.redirect("/")
+        logoutUser(self)
 
 def registerOrSigninOauthUser(handler, idtoken):
     if userdb.get_user_info(idtoken["extension_Crawlhandle"]) is not None:
         # sign in user
-        logging.info("Signing in existing OAuth user")
+        logging.info("Signing in existing OAuth user " + idtoken["extension_Crawlhandle"])
     else:
-        logging.info("Registering new OAuth user")
+        logging.info("Registering new OAuth user " + idtoken["extension_Crawlhandle"])
         userdb.register_user(idtoken["extension_Crawlhandle"], lookupPassword(), idtoken["emails"][0]) # DK - need to solve for passwords
-    # cookie = auth.log_in_as_user(handler, idtoken["extension_Crawlhandle"])
-    # cookie = urllib.parse.unquote(cookie)
-    # logging.info("Cookie: " + cookie)
     handler.session["idtoken"] = ( idtoken["extension_Crawlhandle"], datetime.now() )
+
+def logoutUser(handler):
+    handler.session.delete("flow")
+    handler.session.delete("idtoken")
+    logoutUrl = aad_b2c.AUTHORITY + "/oauth2/v2.0/logout" + "?post_logout_redirect_uri=" + os.getenv("URLBASE")
+    handler.redirect(logoutUrl)
     
 def lookupPassword():
     keyVaultName = os.environ["KV_NAME"]
@@ -234,35 +285,6 @@ def signal_handler(signum, frame):
         # original implementation of webtiles + Tornado 2.4 that was in use
         # through about 2020.
         stop_everything()
-
-class CrawlOauthApplication(tornado.web.Application):
-    def __init__(self):
-        settings = {
-        "static_path": config.static_path,
-        "template_loader": DynamicTemplateLoader.get(config.template_path),
-        "debug": bool(getattr(config, 'development_mode', False)),
-        }
-
-        if hasattr(config, "no_cache") and config.no_cache:
-            settings["static_handler_class"] = NoCacheHandler
-
-        handlers = [
-                (r"/", MainHandler),
-                (r"/authorize", AuthorizeHandler), # Oauth support
-                (r"/logout", LogoutHandler), # Oauth support
-                (r"/socket", CrawlWebSocket),
-                (r"/gamedata/([0-9a-f]*\/.*)", GameDataHandler)
-        ]
-
-        session_settings = dict(
-            driver='memory',
-            driver_settings={'host': self},
-            force_persistence=True,
-            sid_name='torndsession-mem',
-            session_lifetime=1800
-        )
-        settings.update(session=session_settings)
-        tornado.web.Application.__init__(self, handlers=handlers, gzip=getattr(config,"use_gzip",True), **settings)
 
 def bind_server():
     settings = {

@@ -47,6 +47,13 @@ logging_config = {
     "format": "%(asctime)s %(levelname)s: %(message)s"
 }
 
+# AAD B2C support
+use_oauth = True # True = enables AAD_B2C login and disables legacy login;
+torndsession_cache_type = "Memory" # "Redis" to use redis cache or "Memory" to use in-memory cache; if using Redis then environment variable REDIS_CONNECTION_STRING must be set
+if torndsession_cache_type == "Redis" and not os.getenv("REDIS_CONNECTION_STRING"):
+     raise ValueError("Need to define REDIS_CONNECTION_STRING environment variable")
+# 
+
 password_db = "/data/webserver/passwd.db3"
 # Uncomment and change if you want this db somewhere separate from the
 # password_db location.

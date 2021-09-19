@@ -70,6 +70,11 @@ envVars:
     value: "B2C_1_profileediting1"
 
 envSecrets:
+  - name: REDIS_CONNECTION_STRING
+    valueFrom:
+      secretKeyRef:
+        name: crawl-secrets
+        key: redisConnectionString
   - name: B2C_CLIENT_ID
     valueFrom:
       secretKeyRef:
