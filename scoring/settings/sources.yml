@@ -1,4 +1,4 @@
-scoring-base-url: 'http://crawl.kirbytoso.xyz/scoring' # base URL for scoring pages: use 'file://...' for local testing
+scoring-base-url: 'https://crawl.kirbytoso.xyz/scoring' # base URL for scoring pages: use 'file://...' for local testing
 scoring-local: 'scoring' # location for generated files; if relative, is relative to the location of scoresd.py
 local-base: '.' # where logs and lockfiles go
 rawdata-base: 'None' # location for any whereis data
@@ -6,8 +6,8 @@ use-milestones: True
 sources:
   - name: kirbytoso
     canonical_name: kirbytoso
-    server_url: http://crawl.kirbytoso.xyz
-    base: http://crawl.kirbytoso.xyz
+    server_url: https://crawl.kirbytoso.xyz
+    base: https://crawl.kirbytoso.xyz
 
     # If the file exists in this path, it will be linked into the data
     # directory from the local path; otherwise it will be fetched
@@ -15,14 +15,12 @@ sources:
     local: /data/logfiles
     logfiles:
       - git/logfile
-      - 0.26/logfile
-      - 0.25/logfile
+      - 0.27/logfile
 
     milestones:
       - git/milestones
-      - 0.26/milestones
-      - 0.25/milestones
+      - 0.27/milestones
 
     # Regex -> location; player name is automatically appended.
     morgues:
-      - http://crawl.kirbytoso.xyz/morgue
+      - https://crawl.kirbytoso.xyz/morgue

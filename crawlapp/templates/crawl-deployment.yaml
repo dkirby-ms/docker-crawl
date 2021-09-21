@@ -22,6 +22,18 @@ spec:
         - name: {{ .Values.crawlDeployment.name }}
           image: "{{ .Values.crawlDeployment.repository }}:{{ .Values.crawlDeployment.tag }}"
           imagePullPolicy: {{ .Values.crawlDeployment.pullPolicy }}
+          env: 
+            {{- range $.Values.envVars }}
+            - name: {{ .name }}
+              value: {{ .value }}
+            {{- end }}
+            {{- range $.Values.envSecrets }}
+            - name: {{ .name }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .valueFrom.secretKeyRef.name }}
+                  key: {{ .valueFrom.secretKeyRef.key }}
+            {{- end }}
           ports:
           - containerPort: {{ .Values.crawlDeployment.containerPort }}
           volumeMounts:

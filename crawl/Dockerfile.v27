@@ -16,8 +16,12 @@ RUN apt-get update && \
   apt-get upgrade -y && \
   apt-get install -y ${BUILD_DEPS} ${APP_DEPS}
 
-# Retrieve crawl
-RUN git clone ${CRAWL_REPO} /src/
+# Retrieve crawl 0.27
+RUN git clone ${CRAWL_REPO} /src/ && \
+    cd src && \
+    git fetch origin && \
+    git checkout stone_soup-0.27 && \
+    git pull
 
 # Build crawl
 RUN cd /src/crawl-ref/source && \
@@ -49,7 +53,7 @@ RUN pip3 install tornado PyYaML azure-identity azure-keyvault-secrets msal tornd
 COPY --from=builder /app/ /app/
 
 # Copy over custom configs
-COPY webserver/git.config.py /app/webserver/config.py
+COPY webserver/v27.config.py /app/webserver/config.py
 
 # Copy over OAuth code for AAD B2C support
 COPY settings/init.txt /app/settings/
@@ -64,7 +68,7 @@ COPY webserver/templates/game_links.html /app/webserver/templates/game_links.htm
 RUN chmod 700 /app/webserver/server.py
 
 # Set Crawl version for container to use
-ENV CRAWLVERSION="git"
+ENV CRAWLVERSION="0.27"
 
 # Copy over the entrypoint
 COPY scripts/entrypoint-webtiles.sh /app/entrypoint.sh
@@ -80,4 +84,3 @@ WORKDIR /app
 
 # Launch WebTiles server
 ENTRYPOINT [ "./entrypoint.sh" ]
-

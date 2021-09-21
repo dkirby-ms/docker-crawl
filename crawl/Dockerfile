@@ -19,9 +19,27 @@ RUN apt-get update && \
 # Retrieve crawl
 RUN git clone ${CRAWL_REPO} /src/
 
-# Build crawl
+# Build crawl v26
+RUN cd /src && \
+    git fetch origin && \
+    git checkout stone_soup-0.26 && \
+    git pull && \
+    cd /src/crawl-ref/source && \
+    make install -j4 DESTDIR=/crawl-26/ USE_DGAMELAUNCH=y WEBTILES=y
+
+# Build crawl v27
+RUN cd /src && \
+    git fetch origin && \
+    git checkout stone_soup-0.27 && \
+    git pull && \
+    cd /src/crawl-ref/source && \
+    make install -j4 DESTDIR=/crawl-27/ USE_DGAMELAUNCH=y WEBTILES=y
+
+# Build crawl trunk
 RUN cd /src/crawl-ref/source && \
-  make install -j4 DESTDIR=/app/ USE_DGAMELAUNCH=y WEBTILES=y
+  git fetch origin && \
+  git checkout master && \
+  make install -j4 DESTDIR=/crawl-trunk/ USE_DGAMELAUNCH=y WEBTILES=y
 
 # Set up webserver components
 RUN cp -r /src/crawl-ref/source/webserver /app/ && \

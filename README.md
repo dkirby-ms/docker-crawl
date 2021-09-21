@@ -3,7 +3,7 @@
 [![Crawl-build-trunk-and-push](https://github.com/dkirby-ms/docker-crawl/actions/workflows/crawl-git-build.yml/badge.svg)](https://github.com/dkirby-ms/docker-crawl/actions/workflows/crawl-git-build.yml)
 [![Scoring-build-and-push](https://github.com/dkirby-ms/docker-crawl/actions/workflows/scoring-build.yml/badge.svg)](https://github.com/dkirby-ms/docker-crawl/actions/workflows/scoring-build.yml)
 
-Docker container and Kubernetes manifests for Dungeon Crawl Stone Soup (DCSS), crawl-scoring, and eventually beem.
+Docker container and Kubernetes manifests for Dungeon Crawl Stone Soup (DCSS), crawl-scoring, and eventually beem. Includes support for running on Microsoft Azure services including AKS, Keyvault, Azure AD B2C, Redis cache, and more. 
 
 Forked from: [frozenfoxx/docker-crawl](https://github.com/frozenfoxx/docker-crawl)
 
@@ -62,7 +62,7 @@ Forked from: [frozenfoxx/docker-crawl](https://github.com/frozenfoxx/docker-craw
 
   ```shell
   helm repo add csi-secrets-store-provider-azure https://raw.githubusercontent.com/Azure/secrets-store-csi-driver-provider-azure/master/charts
-  helm install csi-secrets-store-provider-azure/csi-secrets-store-provider-azure --generate-name
+  helm install csi csi-secrets-store-provider-azure/csi-secrets-store-provider-azure --namespace kube-system
   ```
 
   ![Screenshot showing helm install secrets csi](./docs/helminstallsecretscsi.png)
@@ -73,14 +73,9 @@ Forked from: [frozenfoxx/docker-crawl](https://github.com/frozenfoxx/docker-craw
 
 * Set a key vault access policy to allow your AKS managed identity client id to get secrets and certificates.
 
+* Create secrets and tls cert in keyvault
+
 * Edit crawlapp/values.yaml with your values.
-
-* Deploy secrets-store-csi driver
-
-```shell
-helm repo add csi-secrets-store-provider-azure https://raw.githubusercontent.com/Azure/secrets-store-csi-driver-provider-azure/master/charts
-helm install csi csi-secrets-store-provider-azure/csi-secrets-store-provider-azure --namespace kube-system
-```
 
 * Deploy Ingress controller (for AKS)
 
@@ -114,13 +109,5 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 ```
 
 * Create storage account and fileshare
-
-* Add kubernetes secret for storage account key
-
-  ```shell
-  STORAGE_ACCOUNT=<your storage account name>
-  STORAGE_KEY=<your key>
-  kubectl create secret generic azure-secret --from-literal=azurestorageaccountname=$STORAGE_ACCOUNT --from-literal=azurestorageaccountkey=$STORAGE_KEY
-  ```
 
 * helm install crawlapp ./crawlapp

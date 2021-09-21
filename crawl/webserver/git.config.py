@@ -27,6 +27,10 @@ except ImportError:
 
 dgl_mode = True
 
+# AAD B2C support
+use_oauth = True # True = enables AAD_B2C login and disables legacy login;
+# 
+
 bind_nonsecure = True # Set to false to only use SSL
 bind_address = ""
 bind_port = 8080
@@ -42,6 +46,13 @@ logging_config = {
     "level": logging.INFO,
     "format": "%(asctime)s %(levelname)s: %(message)s"
 }
+
+# AAD B2C support
+use_oauth = True # True = enables AAD_B2C login and disables legacy login;
+torndsession_cache_type = "Memory" # "Redis" to use redis cache or "Memory" to use in-memory cache; if using Redis then environment variable REDIS_CONNECTION_STRING must be set
+if torndsession_cache_type == "Redis" and not os.getenv("REDIS_CONNECTION_STRING"):
+     raise ValueError("Need to define REDIS_CONNECTION_STRING environment variable")
+# 
 
 password_db = "/data/webserver/passwd.db3"
 # Uncomment and change if you want this db somewhere separate from the
@@ -65,20 +76,7 @@ watch_socket_dirs = False
 
 use_game_yaml = False
 
-
 # Game configs
-#
-# Set these variables to the path of your mount backed by persistent volume claim.
-rcfiles_dir = "/data/rcs"
-morgue_dir="/data/morgue"
-inprogress_dir="/data/inprogress"
-ttyrec_dir="/data/rcs/ttyrecs"
-dirpathroot_dir="/data/logfiles"
-# Create the folders if they dont exist for the specific version of crawl
-folders = {rcfiles_dir, inprogress_dir, dirpathroot_dir}
-for folder in folders:
-    if not os.path.exists(folder + "/" + os.environ['CRAWLVERSION']):
-        os.makedirs(folder + "/" + os.environ['CRAWLVERSION'])
 #
 # You can define game configs in two ways:
 # 1. With a static dictionary `games`
@@ -86,39 +84,18 @@ for folder in folders:
 #    by default loads games as defined in `games.d/*.yaml`).
 #
 # All options in this config are documented in games.d/base.yaml.
-# game_name = "dcss-web-" + os.environ['CRAWLVERSION']
 games = OrderedDict([
     ("dcss-web-git", dict(
         name = "Play trunk",
         crawl_binary = "/app/bin/crawl",
-        rcfile_path = rcfiles_dir + "/git",
-        macro_path = rcfiles_dir + "/git", # using same path as rcfiles for simplicity
-        morgue_path = morgue_dir,
-        inprogress_path = inprogress_dir + "/git",
-        ttyrec_path = ttyrec_dir + "/%n/",
+        rcfile_path =  "/data/rcs/git",
+        macro_path = "/data/rcs/git", # using same path as rcfiles for simplicity
+        morgue_path = "/data/morgue/%n/",
+        inprogress_path = "/data/inprogress/git",
+        ttyrec_path = "/data/ttyrec/%n/",
         socket_path = "/websockets",
         client_path = "/app/webserver/game_data",
-        dir_path = dirpathroot_dir + "/git",
-        # cwd = ".",
-        # morgue_url = "http://crawl.kirbytoso.xyz/morgue/%n/",
-        morgue_url = None,
-        show_save_info = True,
-        # milestone_path = "/data/rcs/milestones-trunk",
-        send_json_options = True,
-        # env = {"LANG": "en_US.UTF8"},
-        )),
-    ("dcss-web-0.26", dict(
-        name = "Play 0.26",
-        crawl_binary = "/app/bin/crawl",
-        pre_options = [ "0.26" ],
-        rcfile_path = rcfiles_dir + "/0.26",
-        macro_path = rcfiles_dir + "/0.26", # using same path as rcfiles for simplicity
-        morgue_path = morgue_dir,
-        inprogress_path = inprogress_dir + "/0.26",
-        ttyrec_path = ttyrec_dir + "/0.26" + "/%n/",
-        socket_path = "/websockets",
-        client_path = "/app/webserver/game_data",
-        dir_path = dirpathroot_dir + "/0.26",
+        dir_path = "/data/logfiles/git",
         # cwd = ".",
         # morgue_url = "http://crawl.kirbytoso.xyz/morgue/%n/",
         morgue_url = None,
@@ -127,6 +104,26 @@ games = OrderedDict([
         send_json_options = True,
         # env = {"LANG": "en_US.UTF8"},
         ))
+    # ("dcss-web-0.26", dict(
+    #     name = "Play 0.26",
+    #     crawl_binary = "/app/bin/crawl",
+    #     pre_options = [ "0.26" ],
+    #     rcfile_path = rcfiles_dir + "/0.26",
+    #     macro_path = rcfiles_dir + "/0.26", # using same path as rcfiles for simplicity
+    #     morgue_path = morgue_dir,
+    #     inprogress_path = inprogress_dir + "/0.26",
+    #     ttyrec_path = ttyrec_dir + "/0.26" + "/%n/",
+    #     socket_path = "/websockets",
+    #     client_path = "/app/webserver/game_data",
+    #     dir_path = dirpathroot_dir + "/0.26",
+    #     # cwd = ".",
+    #     # morgue_url = "http://crawl.kirbytoso.xyz/morgue/%n/",
+    #     morgue_url = None,
+    #     show_save_info = True,
+    #     # milestone_path = "/data/rcs/milestones-trunk",
+    #     send_json_options = True,
+    #     # env = {"LANG": "en_US.UTF8"},
+    #     ))
 ])
 
 
@@ -219,7 +216,7 @@ crypt_algorithm = "broken"
 # setting is ignored and the salt is two characters.
 crypt_salt_length = 16
 
-login_token_lifetime = 7 # Days
+login_token_lifetime = 1 # Days
 
 uid = None  # If this is not None, the server will setuid to that (numeric) id
 gid = None  # after binding its sockets.
