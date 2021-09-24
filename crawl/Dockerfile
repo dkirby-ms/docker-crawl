@@ -98,7 +98,7 @@ EXPOSE 8080
 WORKDIR /webserver
 
 # Install OpenSSH and set the password for root to "Docker!". In this example, "apk add" is the install instruction for an Alpine Linux-based image.
-RUN apt-get install openssh && \
+RUN apt-get install openssh-server && \
   echo "root:Docker!" | chpasswd 
 
 # Copy the sshd_config file to the /etc/ssh/ directory
