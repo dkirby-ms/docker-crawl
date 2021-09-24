@@ -97,7 +97,17 @@ EXPOSE 8080
 # Set the WORKDIR
 WORKDIR /webserver
 
+# Install OpenSSH and set the password for root to "Docker!". In this example, "apk add" is the install instruction for an Alpine Linux-based image.
+RUN apk add openssh \
+     && echo "root:Docker!" | chpasswd 
+
+# Copy the sshd_config file to the /etc/ssh/ directory
+COPY sshd_config /etc/ssh/
+
+# Open port 2222 for SSH access
+EXPOSE 80 2222
+
 # Launch WebTiles server
-ENTRYPOINT [ "./entrypoint.sh" ]
-# CMD ["/bin/bash", "-c", "--", "sleep 3600"]
+#ENTRYPOINT [ "./entrypoint.sh" ]
+CMD ["/bin/bash", "-c", "--", "sleep 3600"]
 
