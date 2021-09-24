@@ -39,7 +39,7 @@ RUN cd /src && \
 RUN cd /src/crawl-ref/source && \
   git fetch origin && \
   git checkout master && \
-  make install -j4 DESTDIR=/crawl-trunk/ USE_DGAMELAUNCH=y WEBTILES=y
+  make install -j4 DESTDIR=/crawl-git/ USE_DGAMELAUNCH=y WEBTILES=y
 
 # Set up webserver components
 RUN cp -r /src/crawl-ref/source/webserver /app/ && \
@@ -64,28 +64,29 @@ RUN apt-get update && \
 RUN pip3 install tornado PyYaML azure-identity azure-keyvault-secrets msal torndsession redis
 
 # Copy over the compiled files
-COPY --from=builder /app/ /app/
+COPY --from=builder /crawl-26/ /crawl-26/
+COPY --from=builder /crawl-27/ /crawl-27/
+COPY --from=builder /crawl-git/ /crawl-git/
+COPY --from=builder /app/ /webserver/
 
 # Copy over custom configs
-COPY webserver/git.config.py /app/webserver/config.py
+COPY webserver/config.py /webserver/config.py
+COPY webserver/games.d/base.yaml /webserver/games.d/base.yaml
 
 # Copy over OAuth code for AAD B2C support
-COPY settings/init.txt /app/settings/
-COPY util/webtiles-init-player.sh /app/util/
-COPY webserver/aad_b2c.py /app/webserver/aad_b2c.py
-COPY webserver/auth.py /app/webserver/auth.py
-COPY webserver/server.py /app/webserver/server.py
-COPY webserver/games.d/* /app/webserver/games.d/
-COPY webserver/templates/client.html /app/webserver/templates/client.html
-COPY webserver/templates/banner.html /app/webserver/templates/banner.html
-COPY webserver/templates/game_links.html /app/webserver/templates/game_links.html
-RUN chmod 700 /app/webserver/server.py
-
-# Set Crawl version for container to use
-ENV CRAWLVERSION="git"
+COPY settings/init.txt /webserver/settings/
+COPY util/webtiles-init-player.sh /webserver/util/
+COPY webserver/aad_b2c.py /webserver/aad_b2c.py
+COPY webserver/auth.py /webserver/auth.py
+COPY webserver/server.py /webserver/server.py
+COPY webserver/games.d/* /webserver/games.d/
+COPY webserver/templates/client.html /webserver/templates/client.html
+COPY webserver/templates/banner.html /webserver/templates/banner.html
+COPY webserver/templates/game_links.html /webserver/templates/game_links.html
+RUN chmod 700 /webserver/server.py
 
 # Copy over the entrypoint
-COPY scripts/entrypoint-webtiles.sh /app/entrypoint.sh
+COPY scripts/entrypoint-webtiles.sh /webserver/entrypoint.sh
 
 # Clean up unnecessary package lists
 RUN rm -rf /var/lib/apt/lists/*
@@ -94,8 +95,9 @@ RUN rm -rf /var/lib/apt/lists/*
 EXPOSE 8080
 
 # Set the WORKDIR
-WORKDIR /app
+WORKDIR /webserver
 
 # Launch WebTiles server
 ENTRYPOINT [ "./entrypoint.sh" ]
+# CMD ["/bin/bash", "-c", "--", "sleep 3600"]
 

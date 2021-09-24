@@ -1,13 +1,13 @@
-name: Crawl-build-27-and-push
+name: Crawl-build-trunk-and-push
 
 on:
   push:
     paths:
       - 'crawl/**'
-      - '!crawl/Dockerfile'
-      - '!crawl/Dockerfile.git'
       - '!crawl/Dockerfile.v26'
-      - '.github/workflows/crawl-27-build.yml'
+      - '!crawl/Dockerfile.v27'
+      - '!crawl/Dockerfile.git'
+      - '.github/workflows/crawl-all-build.yml'
     branches:
       - 'main'
   schedule:
@@ -57,8 +57,8 @@ jobs:
           context: crawl
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          file: crawl/Dockerfile.v27
-          tags: saitcho/crawl-27:latest
+          file: crawl/Dockerfile
+          tags: saitcho/crawl-all:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
       -

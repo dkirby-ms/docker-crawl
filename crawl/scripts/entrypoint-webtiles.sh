@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Variables
-APPDIR=${APPDIR:-"/app"}
+APPDIR=${APPDIR:-"/webserver"}
 DATA_DIR=${DATA_DIR:-"/data"}
 
 # Functions
@@ -25,4 +25,4 @@ create_server_dirs()
 create_server_dirs
 
 cd ${APPDIR}
-./webserver/server.py $@
+./server.py $@

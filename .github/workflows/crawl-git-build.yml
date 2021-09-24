@@ -5,6 +5,8 @@ on:
     paths:
       - 'crawl/**'
       - '!crawl/Dockerfile.v26'
+      - '!crawl/Dockerfile.v27'
+      - '!crawl/Dockerfile'
       - '.github/workflows/crawl-git-build.yml'
     branches:
       - 'main'
