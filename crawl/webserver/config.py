@@ -74,7 +74,7 @@ game_data_no_cache = False
 # Watch socket dirs for games not started by the server
 watch_socket_dirs = False
 
-use_game_yaml = False
+use_game_yaml = True
 
 # Game configs
 #
@@ -143,7 +143,7 @@ max_connections = 100
 # Script to initialize a user, e.g. make sure the paths
 # and the rc file exist. This is not done by the server
 # at the moment.
-init_player_program = "/webserver/util/webtiles-init-player.sh"
+init_player_program = "./util/webtiles-init-player.sh"
 
 ssl_options = None # No SSL
 #ssl_options = {
