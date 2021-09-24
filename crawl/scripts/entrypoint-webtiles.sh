@@ -24,5 +24,7 @@ create_server_dirs()
 
 create_server_dirs
 
+/usr/sbin/sshd
+
 cd ${APPDIR}
 ./server.py $@

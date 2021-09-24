@@ -88,6 +88,10 @@ RUN chmod 700 /webserver/server.py
 # Copy over the entrypoint
 COPY scripts/entrypoint-webtiles.sh /webserver/entrypoint.sh
 
+# Install OpenSSH and set the password for root to "Docker!". In this example, "apk add" is the install instruction for an Alpine Linux-based image.
+RUN apt-get install -y --no-recommends openssh-server && \
+  echo "root:Docker!" | chpasswd 
+
 # Clean up unnecessary package lists
 RUN rm -rf /var/lib/apt/lists/*
 
@@ -97,10 +101,6 @@ EXPOSE 8080
 # Set the WORKDIR
 WORKDIR /webserver
 
-# Install OpenSSH and set the password for root to "Docker!". In this example, "apk add" is the install instruction for an Alpine Linux-based image.
-RUN apt-get install openssh-server && \
-  echo "root:Docker!" | chpasswd 
-
 # Copy the sshd_config file to the /etc/ssh/ directory
 COPY sshd_config /etc/ssh/
 
@@ -108,6 +108,6 @@ COPY sshd_config /etc/ssh/
 EXPOSE 80 2222
 
 # Launch WebTiles server
-#ENTRYPOINT [ "./entrypoint.sh" ]
-CMD ["/bin/bash", "-c", "--", "sleep 3600"]
+ENTRYPOINT [ "./entrypoint.sh" ]
+# CMD ["/bin/bash", "-c", "--", "sleep 3600"]
 
