@@ -89,7 +89,7 @@ RUN chmod 700 /webserver/server.py
 COPY scripts/entrypoint-webtiles.sh /webserver/entrypoint.sh
 
 # Install OpenSSH and set the password for root to "Docker!". In this example, "apk add" is the install instruction for an Alpine Linux-based image.
-RUN apt-get install -y --no-recommends openssh-server && \
+RUN apt-get install -y openssh-server && \
   echo "root:Docker!" | chpasswd 
 
 # Clean up unnecessary package lists
