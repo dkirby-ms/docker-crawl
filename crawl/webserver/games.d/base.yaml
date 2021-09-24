@@ -3,20 +3,20 @@
 # %n in paths and urls is replaced by the current username.
 games:
     # Trunk games
-    - id: normal-web-trunk
-      name: Play Crawl (development branch)
-      crawl_binary: /crawl-git/bin/crawl
-      rcfile_path: /data/rcs/git
-      macro_path: /data/rcs/git
-      morgue_path: /data/morgue/%n/
-      socket_path: /websockets
-      dir_path: /data/logfiles/git
-      inprogress_path: /data/inprogress/git
-      ttyrec_path: /data/ttyrecs/%n
-      client_path: /webserver/game_data/
-      morgue_url: None
-      show_save_info: True
-      send_json_options: True
+    # - id: normal-web-trunk
+    #   name: Play Crawl (development branch)
+    #   crawl_binary: /crawl-git/bin/crawl
+    #   rcfile_path: /data/rcs/git
+    #   macro_path: /data/rcs/git
+    #   morgue_path: /data/morgue/%n/
+    #   socket_path: /websockets
+    #   dir_path: /data/logfiles/git
+    #   inprogress_path: /data/inprogress/git
+    #   ttyrec_path: /data/ttyrecs/%n
+    #   client_path: /webserver/game_data/
+    #   morgue_url: None
+    #   show_save_info: True
+    #   send_json_options: True
     - id: tut-web-trunk
       name: Tutorial
       crawl_binary: /crawl-git/bin/crawl

@@ -85,25 +85,25 @@ use_game_yaml = True
 #
 # All options in this config are documented in games.d/base.yaml.
 games = OrderedDict([
-    # ("dcss-web-git", dict(
-    #     name = "Play Crawl (development branch)",
-    #     crawl_binary = "/app/bin/crawl",
-    #     rcfile_path =  "/data/rcs/git",
-    #     macro_path = "/data/rcs/git", # using same path as rcfiles for simplicity
-    #     morgue_path = "/data/morgue/%n/",
-    #     inprogress_path = "/data/inprogress/git",
-    #     ttyrec_path = "/data/ttyrec/%n/",
-    #     socket_path = "/websockets",
-    #     client_path = "/app/webserver/game_data",
-    #     dir_path = "/data/logfiles/git",
-    #     # cwd = ".",
-    #     # morgue_url = "http://crawl.kirbytoso.xyz/morgue/%n/",
-    #     morgue_url = None,
-    #     show_save_info = True,
-    #     # milestone_path = "/data/rcs/milestones-trunk",
-    #     send_json_options = True,
-    #     # env = {"LANG": "en_US.UTF8"},
-    #     ))
+    ("dcss-web-git", dict(
+        name = "Play Crawl (development branch)",
+        crawl_binary = "/crawl-git/bin/crawl",
+        rcfile_path =  "/data/rcs/git",
+        macro_path = "/data/rcs/git", # using same path as rcfiles for simplicity
+        morgue_path = "/data/morgue/%n/",
+        inprogress_path = "/data/inprogress/git",
+        ttyrec_path = "/data/ttyrec/%n/",
+        socket_path = "/websockets",
+        client_path = "/webserver/game_data",
+        dir_path = "/data/logfiles/git",
+        # cwd = ".",
+        # morgue_url = "http://crawl.kirbytoso.xyz/morgue/%n/",
+        morgue_url = None,
+        show_save_info = True,
+        # milestone_path = "/data/rcs/milestones-trunk",
+        send_json_options = True,
+        # env = {"LANG": "en_US.UTF8"},
+        ))
     # ("dcss-web-0.26", dict(
     #     name = "Play 0.26",
     #     crawl_binary = "/app/bin/crawl",
