@@ -1,4 +1,4 @@
-name: Crawl-build-trunk-and-push
+name: Crawl-build-all-and-push
 
 on:
   push:
