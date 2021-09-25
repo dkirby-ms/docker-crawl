@@ -13,7 +13,7 @@ games:
       dir_path: /data/logfiles/git
       inprogress_path: /data/inprogress/git
       ttyrec_path: /data/ttyrec/%n
-      client_path: /webserver/game_data/
+      client_path: /crawl-git
       morgue_url: None
       show_save_info: True
       send_json_options: True
@@ -26,7 +26,7 @@ games:
       inprogress_path: /data/inprogress/git
       ttyrec_path: /data/ttyrec/%n
       socket_path: /websockets
-      client_path: /webserver/game_data/
+      client_path: /crawl-git
       dir_path: /data/logfiles/git
       morgue_url: None
       show_save_info: True
@@ -42,7 +42,7 @@ games:
       inprogress_path: /data/inprogress/git
       ttyrec_path: /data/ttyrec/%n
       socket_path: /websockets
-      client_path: /webserver/game_data/
+      client_path: /crawl-git
       dir_path: /data/logfiles/git
       morgue_url: None
       show_save_info: True
@@ -60,7 +60,7 @@ games:
       dir_path: /data/logfiles/27
       inprogress_path: /data/inprogress/27
       ttyrec_path: /data/ttyrec/%n
-      client_path: /webserver/game_data/
+      client_path: /crawl-27
       morgue_url: None
       show_save_info: True
       send_json_options: True
@@ -73,7 +73,7 @@ games:
       inprogress_path: /data/inprogress/27
       ttyrec_path: /data/ttyrec/%n
       socket_path: /websockets
-      client_path: /webserver/game_data/
+      client_path: /crawl-27
       dir_path: /data/logfiles/27
       morgue_url: None
       show_save_info: True
@@ -89,7 +89,7 @@ games:
       inprogress_path: /data/inprogress/27
       ttyrec_path: /data/ttyrec/%n
       socket_path: /websockets
-      client_path: /webserver/game_data/
+      client_path: /crawl-27
       dir_path: /data/logfiles/27
       morgue_url: None
       show_save_info: True
@@ -107,7 +107,7 @@ games:
       dir_path: /data/logfiles/26
       inprogress_path: /data/inprogress/26
       ttyrec_path: /data/ttyrec/%n
-      client_path: /webserver/game_data/
+      client_path: /crawl-26
       morgue_url: None
       show_save_info: True
       send_json_options: True
@@ -120,7 +120,7 @@ games:
       inprogress_path: /data/inprogress/26
       ttyrec_path: /data/ttyrec/%n
       socket_path: /websockets
-      client_path: /webserver/game_data/
+      client_path: /crawl-26
       dir_path: /data/logfiles/26
       morgue_url: None
       show_save_info: True
@@ -136,7 +136,7 @@ games:
       inprogress_path: /data/inprogress/26
       ttyrec_path: /data/ttyrec/%n
       socket_path: /websockets
-      client_path: /webserver/game_data/
+      client_path: /crawl-26
       dir_path: /data/logfiles/26
       morgue_url: None
       show_save_info: True
