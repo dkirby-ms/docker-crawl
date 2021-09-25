@@ -86,7 +86,8 @@ COPY webserver/games.d/* /webserver/games.d/
 COPY webserver/templates/client.html /webserver/templates/client.html
 COPY webserver/templates/banner.html /webserver/templates/banner.html
 COPY webserver/templates/game_links.html /webserver/templates/game_links.html
-RUN chmod 700 /webserver/server.py
+RUN chmod 700 /webserver/server.py && \
+    mkdir /websockets
 
 # Copy over the entrypoint
 COPY scripts/entrypoint-webtiles.sh /webserver/entrypoint.sh
@@ -112,5 +113,3 @@ EXPOSE 80 2222
 
 # Launch WebTiles server
 ENTRYPOINT [ "./entrypoint.sh" ]
-# CMD ["/bin/bash", "-c", "--", "sleep 3600"]
-
