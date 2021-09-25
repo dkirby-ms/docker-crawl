@@ -12,7 +12,7 @@ games:
       socket_path: /websockets
       dir_path: /data/logfiles/git
       inprogress_path: /data/inprogress/git
-      ttyrec_path: /data/ttyrecs/%n
+      ttyrec_path: /data/ttyrec/%n
       client_path: /webserver/game_data/
       morgue_url: None
       show_save_info: True
@@ -24,7 +24,7 @@ games:
       macro_path: /data/rcs/git
       morgue_path: /data/morgue/%n/
       inprogress_path: /data/inprogress/git
-      ttyrec_path: /data/ttyrecs/%n
+      ttyrec_path: /data/ttyrec/%n
       socket_path: /websockets
       client_path: /webserver/game_data/
       dir_path: /data/logfiles/git
@@ -40,10 +40,104 @@ games:
       macro_path: /data/rcs/git
       morgue_path: /data/morgue/%n/
       inprogress_path: /data/inprogress/git
-      ttyrec_path: /data/ttyrecs/%n
+      ttyrec_path: /data/ttyrec/%n
       socket_path: /websockets
       client_path: /webserver/game_data/
       dir_path: /data/logfiles/git
+      morgue_url: None
+      show_save_info: True
+      send_json_options: True
+      options:
+        - -sprint
+    # v27 games
+    - id: normal-web-27
+      name: Play Crawl (v27)
+      crawl_binary: /crawl-27/bin/crawl
+      rcfile_path: /data/rcs/27
+      macro_path: /data/rcs/27
+      morgue_path: /data/morgue/%n/
+      socket_path: /websockets
+      dir_path: /data/logfiles/27
+      inprogress_path: /data/inprogress/27
+      ttyrec_path: /data/ttyrec/%n
+      client_path: /webserver/game_data/
+      morgue_url: None
+      show_save_info: True
+      send_json_options: True
+    - id: tut-web-27
+      name: Tutorial
+      crawl_binary: /crawl-27/bin/crawl
+      rcfile_path: /data/rcs/27
+      macro_path: /data/rcs/27
+      morgue_path: /data/morgue/%n/
+      inprogress_path: /data/inprogress/27
+      ttyrec_path: /data/ttyrec/%n
+      socket_path: /websockets
+      client_path: /webserver/game_data/
+      dir_path: /data/logfiles/27
+      morgue_url: None
+      show_save_info: True
+      send_json_options: True
+      options:
+        - -tutorial
+    - id: sprint-web-27
+      name: Sprint
+      crawl_binary: /crawl-27/bin/crawl
+      rcfile_path: /data/rcs/27
+      macro_path: /data/rcs/27
+      morgue_path: /data/morgue/%n/
+      inprogress_path: /data/inprogress/27
+      ttyrec_path: /data/ttyrec/%n
+      socket_path: /websockets
+      client_path: /webserver/game_data/
+      dir_path: /data/logfiles/27
+      morgue_url: None
+      show_save_info: True
+      send_json_options: True
+      options:
+        - -sprint
+    # v26 games
+    - id: normal-web-26
+      name: Play Crawl (v26)
+      crawl_binary: /crawl-26/bin/crawl
+      rcfile_path: /data/rcs/26
+      macro_path: /data/rcs/26
+      morgue_path: /data/morgue/%n/
+      socket_path: /websockets
+      dir_path: /data/logfiles/26
+      inprogress_path: /data/inprogress/26
+      ttyrec_path: /data/ttyrec/%n
+      client_path: /webserver/game_data/
+      morgue_url: None
+      show_save_info: True
+      send_json_options: True
+    - id: tut-web-26
+      name: Tutorial
+      crawl_binary: /crawl-26/bin/crawl
+      rcfile_path: /data/rcs/26
+      macro_path: /data/rcs/26
+      morgue_path: /data/morgue/%n/
+      inprogress_path: /data/inprogress/26
+      ttyrec_path: /data/ttyrec/%n
+      socket_path: /websockets
+      client_path: /webserver/game_data/
+      dir_path: /data/logfiles/26
+      morgue_url: None
+      show_save_info: True
+      send_json_options: True
+      options:
+        - -tutorial
+    - id: sprint-web-26
+      name: Sprint
+      crawl_binary: /crawl-26/bin/crawl
+      rcfile_path: /data/rcs/26
+      macro_path: /data/rcs/26
+      morgue_path: /data/morgue/%n/
+      inprogress_path: /data/inprogress/26
+      ttyrec_path: /data/ttyrec/%n
+      socket_path: /websockets
+      client_path: /webserver/game_data/
+      dir_path: /data/logfiles/26
       morgue_url: None
       show_save_info: True
       send_json_options: True

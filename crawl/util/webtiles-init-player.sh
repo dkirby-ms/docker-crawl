@@ -9,7 +9,7 @@ mkdir -p $INPROGRESSDIR
 mkdir -p $TTYRECDIR
 mkdir -p $MORGUEDIR
 
-for CRAWLVERSION in git 26 27
+for CRAWLVERSION in $SUPPORTED_CRAWL_VERSIONS
 do
 RCDIR=/data/rcs/$CRAWLVERSION
 mkdir -p $RCDIR

@@ -55,6 +55,9 @@ ENV APP_DEPS="bzip2 liblua5.1-0-dev python3-minimal python3-pip python3-yaml \
   DATA_DIR=/data \
   DEBIAN_FRONTEND=noninteractive
 
+# Supported crawl versions (used by webtiles-init-player.sh)
+ENV SUPPORTED_CRAWL_VERSIONS="git 26 27"
+
 # Install packages for the runtime
 RUN apt-get update && \
   apt-get upgrade -y && \
