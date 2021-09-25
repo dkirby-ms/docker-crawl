@@ -4,7 +4,7 @@
 
 crawlDeployment:
   name: "crawl-git"
-  repository: saitcho/crawl
+  repository: saitcho/crawl-all
   replicaCount: 1
   pullPolicy: Always
   tag: "latest"  # Overrides the image tag whose default is the chart appVersion.
