@@ -54,7 +54,7 @@ if torndsession_cache_type == "Redis" and not os.getenv("REDIS_CONNECTION_STRING
      raise ValueError("Need to define REDIS_CONNECTION_STRING environment variable")
 # 
 
-password_db = "/home/passwd.db3"
+password_db = "./webserver/passwd.db3"
 # Uncomment and change if you want this db somewhere separate from the
 # password_db location.
 # settings_db = "/webserver/user_settings.db3"

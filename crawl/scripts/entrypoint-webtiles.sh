@@ -24,7 +24,7 @@ create_server_dirs()
 
 create_server_dirs
 
-/etc/init.d/ssh start
+# /etc/init.d/ssh start
 
 cd ${APPDIR}
 ./server.py $@
