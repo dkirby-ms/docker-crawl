@@ -15,11 +15,13 @@ sources:
     local: /data/logfiles
     logfiles:
       - git/logfile
-      - 0.27/logfile
+      - 27/logfile
+      - 26/milestones
 
     milestones:
       - git/milestones
-      - 0.27/milestones
+      - 27/milestones
+      - 26/milestones
 
     # Regex -> location; player name is automatically appended.
     morgues:
