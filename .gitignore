@@ -2,3 +2,4 @@
 .env
 flask_session
 Pipfile.lock
+envVars.docker
