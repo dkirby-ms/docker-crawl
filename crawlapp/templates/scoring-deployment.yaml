@@ -25,9 +25,6 @@ spec:
           ports:
           - containerPort: {{ .Values.scoringDeployment.containerPort }}
           volumeMounts:
-            - name: secrets-store-inline
-              mountPath: "/mnt/secrets-store"
-              readOnly: true
             {{- range $.Values.scoringVolumes }}
             - name: {{ .name }}
               mountPath: {{ .mountPath }}
