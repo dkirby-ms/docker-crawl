@@ -16,7 +16,7 @@ sources:
     logfiles:
       - git/logfile
       - 27/logfile
-      - 26/milestones
+      - 26/logfile
 
     milestones:
       - git/milestones
