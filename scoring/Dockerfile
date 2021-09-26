@@ -24,8 +24,7 @@ RUN pip install mako PyYAML mysqlclient
 
 # Retrieve crawl scoring
 RUN git clone ${CRAWL_REPO} /scoring/ && \
-    mkdir /scoring/scoring && \
-    cp /scoring/templates/score.css /scoring/scoring/score.css
+    mkdir /scoring/scoring
 
 # Copy over custom configs
 COPY settings/sources.yml /scoring/sources.yml
@@ -33,6 +32,7 @@ COPY settings/nginx.conf /etc/nginx/sites-available/default
 COPY settings/init-scoring.sh /scoring/init-scoring.sh
 COPY settings/toplink.mako /scoring/templates/toplink.mako
 COPY settings/index.mako /scoring/templates/index.mako
+COPY settings/score.css /scoring/scoring/score.css
 
 # Clean up unnecessary package lists
 RUN rm -rf /var/lib/apt/lists/*
