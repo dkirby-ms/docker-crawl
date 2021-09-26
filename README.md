@@ -62,7 +62,7 @@ Forked from: [frozenfoxx/docker-crawl](https://github.com/frozenfoxx/docker-craw
 
   ```shell
   helm repo add csi-secrets-store-provider-azure https://raw.githubusercontent.com/Azure/secrets-store-csi-driver-provider-azure/master/charts
-  helm install csi csi-secrets-store-provider-azure/csi-secrets-store-provider-azure --namespace kube-system
+  helm install csi csi-secrets-store-provider-azure/csi-secrets-store-provider-azure --set secrets-store-csi-driver.syncSecret.enabled=true
   ```
 
   ![Screenshot showing helm install secrets csi](./docs/helminstallsecretscsi.png)
@@ -94,7 +94,7 @@ controller:
           driver: secrets-store.csi.k8s.io
           readOnly: true
           volumeAttributes:
-            secretProviderClass: "azure-kvcrawl"
+            secretProviderClass: "azure-keyvault"
   extraVolumeMounts:
       - name: secrets-store-inline
         mountPath: "/mnt/secrets-store"

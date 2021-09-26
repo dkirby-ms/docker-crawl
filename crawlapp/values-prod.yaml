@@ -59,6 +59,14 @@ volumes:
     storage: 5Gi
     accessMode: ReadWriteOnce
 
+scoringVolumes:
+  - name: "data"
+    claimName: "datadirclaim"
+    mountPath: /data
+    storageClassName: "azurefile"
+    storage: 5Gi
+    accessMode: ReadWriteMany
+
 envVars:
   - name: URLBASE
     value: "https://crawl.kirbytoso.xyz"
