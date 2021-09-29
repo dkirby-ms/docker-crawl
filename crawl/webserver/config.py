@@ -42,7 +42,7 @@ bind_port = 8080
 # )
 
 logging_config = {
-    # "filename": "webtiles.log",  # uncomment for testing/debugging
+    # "filename": "webtiles.log", # leave uncommented so logs get written to stdout
     "level": logging.INFO,
     "format": "%(asctime)s %(levelname)s: %(message)s"
 }

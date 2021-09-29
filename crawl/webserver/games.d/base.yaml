@@ -14,7 +14,7 @@ games:
       inprogress_path: /data/inprogress/git
       ttyrec_path: /data/ttyrec/%n
       client_path: /crawl-git
-      morgue_url: None
+      morgue_url: https://crawl.kirbytoso.xyz/morgue/%n/
       show_save_info: True
       send_json_options: True
     - id: tut-web-trunk
@@ -28,7 +28,7 @@ games:
       socket_path: /websockets
       client_path: /crawl-git
       dir_path: /data/logfiles/git
-      morgue_url: None
+      morgue_url: https://crawl.kirbytoso.xyz/morgue/%n/
       show_save_info: True
       send_json_options: True
       options:
@@ -44,7 +44,7 @@ games:
       socket_path: /websockets
       client_path: /crawl-git
       dir_path: /data/logfiles/git
-      morgue_url: None
+      morgue_url: https://crawl.kirbytoso.xyz/morgue/%n/
       show_save_info: True
       send_json_options: True
       options:
@@ -61,7 +61,7 @@ games:
       inprogress_path: /data/inprogress/27
       ttyrec_path: /data/ttyrec/%n
       client_path: /crawl-27
-      morgue_url: None
+      morgue_url: https://crawl.kirbytoso.xyz/morgue/%n/
       show_save_info: True
       send_json_options: True
     - id: tut-web-27
@@ -75,7 +75,7 @@ games:
       socket_path: /websockets
       client_path: /crawl-27
       dir_path: /data/logfiles/27
-      morgue_url: None
+      morgue_url: https://crawl.kirbytoso.xyz/morgue/%n/
       show_save_info: True
       send_json_options: True
       options:
@@ -91,7 +91,7 @@ games:
       socket_path: /websockets
       client_path: /crawl-27
       dir_path: /data/logfiles/27
-      morgue_url: None
+      morgue_url: https://crawl.kirbytoso.xyz/morgue/%n/
       show_save_info: True
       send_json_options: True
       options:
@@ -108,7 +108,7 @@ games:
       inprogress_path: /data/inprogress/26
       ttyrec_path: /data/ttyrec/%n
       client_path: /crawl-26
-      morgue_url: None
+      morgue_url: https://crawl.kirbytoso.xyz/morgue/%n/
       show_save_info: True
       send_json_options: True
     - id: tut-web-26
@@ -122,7 +122,7 @@ games:
       socket_path: /websockets
       client_path: /crawl-26
       dir_path: /data/logfiles/26
-      morgue_url: None
+      morgue_url: https://crawl.kirbytoso.xyz/morgue/%n/
       show_save_info: True
       send_json_options: True
       options:
@@ -138,7 +138,7 @@ games:
       socket_path: /websockets
       client_path: /crawl-26
       dir_path: /data/logfiles/26
-      morgue_url: None
+      morgue_url: https://crawl.kirbytoso.xyz/morgue/%n/
       show_save_info: True
       send_json_options: True
       options:
