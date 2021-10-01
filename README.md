@@ -67,11 +67,13 @@ Forked from: [frozenfoxx/docker-crawl](https://github.com/frozenfoxx/docker-craw
 
   ![Screenshot showing helm install secrets csi](./docs/helminstallsecretscsi.png)
 
+* Deploy kvSecretProviderClass.yaml
+
 * Create Azure key vault and import a certificate.
 
-* Configure your key vault to allow access to the AKS vnet.
+* Configure your key vault to allow access to the AKS vnet (if not using public access)
 
-* Set a key vault access policy to allow your AKS managed identity client id to get secrets and certificates.
+* Set a key vault access policy to allow your AKS managed identity to get secrets and certificates.
 
 * Create secrets and tls cert in keyvault
 
