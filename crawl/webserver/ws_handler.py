@@ -187,8 +187,8 @@ class CrawlWebSocket(tornado.websocket.WebSocketHandler):
 
         self.message_handlers = {
             "login": self.login,
-            "token_login": self.token_login,
-            "set_login_cookie": self.set_login_cookie,
+            # "token_login": self.token_login,
+            # "set_login_cookie": self.set_login_cookie,
             "forget_login_cookie": self.forget_login_cookie,
             "play": self.start_crawl,
             "pong": self.pong,
