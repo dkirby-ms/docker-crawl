@@ -80,7 +80,7 @@ COPY webserver/games.d/base.yaml /webserver/games.d/base.yaml
 COPY settings/init.txt /webserver/settings/
 COPY util/webtiles-init-player.sh /webserver/util/
 COPY webserver/aad_b2c.py /webserver/aad_b2c.py
-COPY webserver/auth.py /webserver/auth.py
+COPY webserver/ws_handler.py /webserver/ws_handler.py
 COPY webserver/server.py /webserver/server.py
 COPY webserver/games.d/* /webserver/games.d/
 COPY webserver/templates/client.html /webserver/templates/client.html
