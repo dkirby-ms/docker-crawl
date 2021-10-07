@@ -296,6 +296,7 @@ class CrawlWebSocket(tornado.websocket.WebSocketHandler):
         if config.use_oauth:
             try: 
                 if self.application.session_container[self.cookies['torndsession-mem'].coded_value]['idtoken'][0]:
+                    self.logger.info("User %s logging in from %s.", self.application.session_container[self.cookies['torndsession-mem'].coded_value]['idtoken'][0], self.request.remote_ip)
                     self.do_login(self.application.session_container[self.cookies['torndsession-mem'].coded_value]['idtoken'][0])
             except KeyError:
                 pass
