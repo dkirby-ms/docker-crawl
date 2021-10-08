@@ -3,6 +3,7 @@ FROM ubuntu:20.04 AS builder
 
 # Variables
 ENV CRAWL_REPO="https://github.com/crawl/crawl.git" \
+  CKX_FORK="https://github.com/dkirby-ms/crawl.git" \
   APP_DEPS="bzip2 liblua5.1-0-dev python3-minimal python3-pip python3-yaml \
     python-is-python3 ncurses-term locales-all sqlite3 libpcre3 locales \
     lsof sudo libbot-basicbot-perl" \
@@ -18,6 +19,9 @@ RUN apt-get update && \
 
 # Retrieve crawl
 RUN git clone ${CRAWL_REPO} /src/
+
+# Retrieve Oauth fork of crawl (for copying customized code for Azure support)
+RUN git clone ${CKX_FORK} /ckxfork/
 
 # Build crawl v26
 RUN cd /src && \
@@ -64,7 +68,7 @@ RUN apt-get update && \
   apt-get install -y ${APP_DEPS}
 
 # Install Tornado
-RUN pip3 install tornado PyYaML azure-identity azure-keyvault-secrets msal torndsession redis
+RUN pip3 install tornado azure-identity azure-keyvault-secrets msal torndsession redis
 
 # Copy over the compiled files
 COPY --from=builder /crawl-26/ /crawl-26/
@@ -77,24 +81,20 @@ COPY webserver/config.py /webserver/config.py
 COPY webserver/games.d/base.yaml /webserver/games.d/base.yaml
 
 # Copy over OAuth code for AAD B2C support
+COPY --from=builder ckxfork/crawl-ref/source/webserver/aad_b2c.py /webserver/aad_b2c.py
+COPY --from=builder ckxfork/crawl-ref/source/webserver/ws_handler.py /webserver/ws_handler.py
+COPY --from=builder ckxfork/crawl-ref/source/webserver/server.py /webserver/server.py
+
+# Copy config.py and other custom settings including banner links, player init scripts, and entrypoint
 COPY settings/init.txt /webserver/settings/
 COPY util/webtiles-init-player.sh /webserver/util/
-COPY webserver/aad_b2c.py /webserver/aad_b2c.py
-COPY webserver/ws_handler.py /webserver/ws_handler.py
-COPY webserver/server.py /webserver/server.py
 COPY webserver/games.d/* /webserver/games.d/
 COPY webserver/templates/client.html /webserver/templates/client.html
 COPY webserver/templates/banner.html /webserver/templates/banner.html
 COPY webserver/templates/game_links.html /webserver/templates/game_links.html
+COPY scripts/entrypoint-webtiles.sh /webserver/entrypoint.sh
 RUN chmod 700 /webserver/server.py && \
     mkdir /websockets
-
-# Copy over the entrypoint
-COPY scripts/entrypoint-webtiles.sh /webserver/entrypoint.sh
-
-# Install OpenSSH and set the password for root to "Docker!". In this example, "apk add" is the install instruction for an Alpine Linux-based image.
-# RUN apt-get install -y openssh-server && \
-#   echo "root:Docker!" | chpasswd 
 
 # Clean up unnecessary package lists
 RUN rm -rf /var/lib/apt/lists/*
@@ -104,12 +104,6 @@ EXPOSE 8080
 
 # Set the WORKDIR
 WORKDIR /webserver
-
-# Copy the sshd_config file to the /etc/ssh/ directory
-# COPY sshd_config /etc/ssh/
-
-# Open port 2222 for SSH access
-# EXPOSE 80 2222
 
 # Launch WebTiles server
 ENTRYPOINT [ "./entrypoint.sh" ]
