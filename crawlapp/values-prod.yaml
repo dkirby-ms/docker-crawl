@@ -116,8 +116,6 @@ envSecrets:
 
 service:
   crawlGitName: "crawl-git-service"
-  crawl27Name: "crawl-27-service"
-  crawl26Name: "crawl-26-service"
   scoringName: "scoring-service"
   port: 80
 
@@ -155,13 +153,6 @@ ingress:
         backend:
           service:
             name: "crawl-git-service"
-            port:
-              number: 8080
-      - path: /dcss-web-git(/|$)(.*)
-        pathType: Prefix
-        backend:
-          service:
-            name: crawl-git-service
             port:
               number: 8080
   tls:
