@@ -15,11 +15,13 @@ sources:
     local: /data/logfiles
     logfiles:
       - git/logfile
+      - 28/logfile
       - 27/logfile
       - 26/logfile
 
     milestones:
       - git/milestones
+      - 28/milestones
       - 27/milestones
       - 26/milestones
 
