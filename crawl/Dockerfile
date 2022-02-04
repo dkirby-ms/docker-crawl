@@ -39,6 +39,14 @@ RUN cd /src && \
     cd /src/crawl-ref/source && \
     make install -j4 DESTDIR=/crawl-27/ USE_DGAMELAUNCH=y WEBTILES=y
 
+# Build crawl v28
+RUN cd /src && \
+    git fetch origin && \
+    git checkout stone_soup-0.28 && \
+    git pull && \
+    cd /src/crawl-ref/source && \
+    make install -j4 DESTDIR=/crawl-28/ USE_DGAMELAUNCH=y WEBTILES=y
+
 # Build crawl trunk
 RUN cd /src/crawl-ref/source && \
   git fetch origin && \
@@ -60,7 +68,7 @@ ENV APP_DEPS="bzip2 liblua5.1-0-dev python3-minimal python3-pip python3-yaml \
   DEBIAN_FRONTEND=noninteractive
 
 # Supported crawl versions (used by webtiles-init-player.sh)
-ENV SUPPORTED_CRAWL_VERSIONS="git 26 27"
+ENV SUPPORTED_CRAWL_VERSIONS="git 26 27 28"
 
 # Install packages for the runtime
 RUN apt-get update && \
@@ -73,6 +81,7 @@ RUN pip3 install tornado azure-identity azure-keyvault-secrets msal torndsession
 # Copy over the compiled files
 COPY --from=builder /crawl-26/ /crawl-26/
 COPY --from=builder /crawl-27/ /crawl-27/
+COPY --from=builder /crawl-28/ /crawl-28/
 COPY --from=builder /crawl-git/ /crawl-git/
 COPY --from=builder /app/ /webserver/
 

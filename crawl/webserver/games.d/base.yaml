@@ -49,6 +49,53 @@ games:
       send_json_options: True
       options:
         - -sprint
+    # v28 games
+    - id: normal-web-28
+      name: Play Crawl (v28)
+      crawl_binary: /crawl-28/bin/crawl
+      rcfile_path: /data/rcs/28
+      macro_path: /data/rcs/28
+      morgue_path: /data/morgue/%n/
+      socket_path: /websockets
+      dir_path: /data/logfiles/28
+      inprogress_path: /data/inprogress/28
+      ttyrec_path: /data/ttyrec/%n
+      client_path: /crawl-28
+      morgue_url: https://crawl.kirbytoso.xyz/morgue/%n/
+      show_save_info: True
+      send_json_options: True
+    - id: tut-web-28
+      name: Tutorial
+      crawl_binary: /crawl-28/bin/crawl
+      rcfile_path: /data/rcs/28
+      macro_path: /data/rcs/28
+      morgue_path: /data/morgue/%n/
+      inprogress_path: /data/inprogress/28
+      ttyrec_path: /data/ttyrec/%n
+      socket_path: /websockets
+      client_path: /crawl-28
+      dir_path: /data/logfiles/28
+      morgue_url: https://crawl.kirbytoso.xyz/morgue/%n/
+      show_save_info: True
+      send_json_options: True
+      options:
+        - -tutorial
+    - id: sprint-web-28
+      name: Sprint
+      crawl_binary: /crawl-28/bin/crawl
+      rcfile_path: /data/rcs/28
+      macro_path: /data/rcs/28
+      morgue_path: /data/morgue/%n/
+      inprogress_path: /data/inprogress/28
+      ttyrec_path: /data/ttyrec/%n
+      socket_path: /websockets
+      client_path: /crawl-28
+      dir_path: /data/logfiles/28
+      morgue_url: https://crawl.kirbytoso.xyz/morgue/%n/
+      show_save_info: True
+      send_json_options: True
+      options:
+        - -sprint
     # v27 games
     - id: normal-web-27
       name: Play Crawl (v27)
